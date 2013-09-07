@@ -2,28 +2,6 @@ var passport      = require('passport');
 
 module.exports = function(app, config) {
    
-  app.get('/test/news', function(req, res, next){
-    res.setHeader('Content-Type', 'text/plain');
-    // res.setHeader('Content-Length', body.length);
-    res.end();
-
-  });
-  app.get('/test/login', function(req, res, next) {
-    console.log('hi');
-    res.setHeader('Content-Type', 'text/plain');
-  // res.setHeader('Content-Length', body.length);
-    res.end();
-    // var data = [];
-    // console.log('tlaf');
-    // // Implement login
-    // req.on('data', function(chunk){
-    //   data.push(chunk);
-    // });
-    // console.log(data);
-    // res.setHeader('Content-Type', 'text/plain');
-    // res.setHeader('Content-Length', body.length);
-    // res.end();
-  });
 
 
   // Setup API blockade
@@ -35,18 +13,15 @@ module.exports = function(app, config) {
     return res.send(401, 'Unauthorized');
   });
 
-  // Auth
-  app.post('/login',
-    passport.authenticate('local', { successRedirect: '/',
-    failureRedirect: '/login' })
-  );
+  app.get('/login', function(req, res){
+    res.render('<div>alfsd</div>', { username: req.user});
+  });
 
-  app.get('/login', function(req, res, next){
-    var body = 'Hello World';
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Length', body.length);
-    res.end(body);
-  })
+  app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
   app.post('/signup', function(req, res, next) {
     var body = 'Hello World';
@@ -64,3 +39,39 @@ module.exports = function(app, config) {
     // Implement news rating
   });
 }
+  // Auth
+  // app.post('/login',
+  //   passport.authenticate('local', { successRedirect: '/',
+  //   failureRedirect: '/login' })
+  // );
+
+  // app.get('/login', function(req, res, next){
+  //   var body = 'Hello World';
+  //   res.setHeader('Content-Type', 'text/plain');
+  //   res.setHeader('Content-Length', body.length);
+  //   res.end(body);
+  // })
+
+
+  // app.get('/test/news', function(req, res, next){
+  //   res.setHeader('Content-Type', 'text/plain');
+  //   // res.setHeader('Content-Length', body.length);
+  //   res.end();
+
+  // });
+  // app.get('/test/login', function(req, res, next) {
+  //   console.log('hi');
+  //   res.setHeader('Content-Type', 'text/plain');
+  // // res.setHeader('Content-Length', body.length);
+  //   res.end();
+  //   // var data = [];
+  //   // console.log('tlaf');
+  //   // // Implement login
+  //   // req.on('data', function(chunk){
+  //   //   data.push(chunk);
+  //   // });
+  //   // console.log(data);
+  //   // res.setHeader('Content-Type', 'text/plain');
+  //   // res.setHeader('Content-Length', body.length);
+  //   // res.end();
+  // });
