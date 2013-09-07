@@ -1,4 +1,5 @@
-var passport      = require('passport');
+var passport      = require('passport'),
+    db    = require('../config/db'); // take this out
 
 module.exports = function(app, config) {
    
@@ -13,9 +14,9 @@ module.exports = function(app, config) {
     return res.send(401, 'Unauthorized');
   });
 
-  app.get('/login', function(req, res){
-    res.render('<div>alfsd</div>', { username: req.user});
-  });
+  // app.get('/login', function(req, res){
+  //   res.render('<div>alfsd</div>', { username: req.user});
+  // });
 
   app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
@@ -24,11 +25,8 @@ module.exports = function(app, config) {
   });
 
   app.post('/signup', function(req, res, next) {
-    var body = 'Hello World';
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Length', body.length);
-    res.end(body);
     // Implement signup
+    passport.signup(req, res);
   });
 
   app.get('/api/news', function(req, res, next) {
