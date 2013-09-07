@@ -1,17 +1,30 @@
 var passport      = require('passport');
 
 module.exports = function(app, config) {
-  // Setup CORS
-  app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', config.clientUrl);
-    res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
+   
+  app.get('/test/news', function(req, res, next){
+    res.setHeader('Content-Type', 'text/plain');
+    // res.setHeader('Content-Length', body.length);
+    res.end();
+
+  });
+  app.get('/test/login', function(req, res, next) {
+    console.log('hi');
+    res.setHeader('Content-Type', 'text/plain');
+  // res.setHeader('Content-Length', body.length);
+    res.end();
+    // var data = [];
+    // console.log('tlaf');
+    // // Implement login
+    // req.on('data', function(chunk){
+    //   data.push(chunk);
+    // });
+    // console.log(data);
+    // res.setHeader('Content-Type', 'text/plain');
+    // res.setHeader('Content-Length', body.length);
+    // res.end();
   });
 
-  app.options('*', function(req, res){
-    res.send(200); 
-  });
 
   // Setup API blockade
   app.all('/api/*', function(req, res, next) {
@@ -23,11 +36,23 @@ module.exports = function(app, config) {
   });
 
   // Auth
-  app.post('/api/login', function(req, res, next) {
-    // Implement login
-  });
+  app.post('/login',
+    passport.authenticate('local', { successRedirect: '/',
+    failureRedirect: '/login' })
+  );
 
-  app.post('/api/signup', function(req, res, next) {
+  app.get('/login', function(req, res, next){
+    var body = 'Hello World';
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Length', body.length);
+    res.end(body);
+  })
+
+  app.post('/signup', function(req, res, next) {
+    var body = 'Hello World';
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Length', body.length);
+    res.end(body);
     // Implement signup
   });
 

@@ -12,8 +12,8 @@ This repo contains a skeleton node/express application. In this application, you
 
 Basic requirements
 
-* [ ] Implement Gruntfile
-* [ ] Add the User model
+* [x ] Implement Gruntfile
+* [x ] Add the User model
 * [ ] Configure the express app to route the following routes:
   * /signup   - User signup. Parameters: email & password
   * /login    - User login, Params: email & password
